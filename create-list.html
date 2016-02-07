@@ -1,2 +1,13 @@
-<input>
-<li>{{mail.mail}}</li>
+<input ng-model="newMail">
+<button ng-click="addNewMail(newMail)">
+	<img ng-src="add.png"/>
+</button>
+<h3 style="display:inline;">
+  Доступно адресов для рассылки: {{listMails.mails.length}}
+</h3>
+<div ng-repeat="mail in listMails.mails">
+	<h3 style="display:inline;">{{mail}}</h3>
+	<button ng-click="deleteMail($index)">
+		<img ng-src="delete.png" />	
+	</button>
+</div>
