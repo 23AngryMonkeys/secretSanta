@@ -1,13 +1,19 @@
-<input ng-model="newMail">
-<button ng-click="addNewMail(newMail)">
-	<img ng-src="add.png"/>
-</button>
-<h3 style="display:inline;">
-  Доступно адресов для рассылки: {{listMails.mails.length}}
-</h3>
-<div ng-repeat="mail in listMails.mails">
-	<h3 style="display:inline;">{{mail}}</h3>
-	<button ng-click="deleteMail($index)">
-		<img ng-src="delete.png" />	
-	</button>
+<div>
+<!-- CR: у меня в шахматке ругалось, если в темплейте несколько корневых узловю Возможно, это появляется, если у директивы replace: true. -->
+
+    <input ng-model="emailList.currentEmail" />
+    <!-- CR: всегда закрывай одиночные тэги -->
+    <button ng-click="emailList.actions.addEmail()">
+        <!-- CR: зачем в шаблоне зашивать, что пробрасывается куда, если это можно сделать в контроллере? -->
+        <img ng-src="add.png" />
+    </button>
+    <h3 style="display:inline;">
+  	Доступно адресов для рассылки: {{listMails.mails.length}} <!-- CR: доступно - это максимум - минус количество введенных. Максимум нужно пробрасывать в директиву снаружи, а не хардкодить -->
+	</h3>
+    <div ng-repeat="email in emailList.emails">
+        <h3 style="display:inline;">{{email}}</h3>
+        <button ng-click="emailList.actions.deleteEmail($index)">
+            <img ng-src="delete.png" />
+        </button>
+    </div>
 </div>
