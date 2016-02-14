@@ -3,7 +3,7 @@
             return {
             	replace: true,
             	restrict: 'A',
-                templateUrl: 'templates/secretsanta.templates.emaillist.html',
+                templateUrl: '/templates/secretsanta.templates.emaillist.html',
                 scope: { // CR: делаем все директивы с изолированным скоупом - это очень сильно стрктурирует код
             		emails: "="
                 },
