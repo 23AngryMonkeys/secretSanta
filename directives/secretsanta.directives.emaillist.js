@@ -1,4 +1,5 @@
-angular.module('secretSanta').directive('secsanEmailList', function() {
+(function(){
+    angular.module('secretSanta').directive('secsanEmailList', function() {
         return {
         	replace: true,
         	restrict: 'A',
@@ -6,24 +7,28 @@ angular.module('secretSanta').directive('secsanEmailList', function() {
             scope: { // CR: делаем все директивы с изолированным скоупом - это очень сильно стрктурирует код
         		emails: "=",
                 allowNumber: "="
+                // Мне надо сюда пробросить статус оповещения?
             },
             controller: 'EmailListController',
-            controllerAs: 'emailList', // CR: старайся не придумывать разные имена для одних и тех же вещей,
-            bindToController: true // CR: http://blog.thoughtram.io/angularjs/2015/01/02/exploring-angular-1.3-bindToController.html прочитай вот это
+            controllerAs: 'emailList', 
+            bindToController: true
         };
     });
-angular.module('secretSanta').controller('EmailListController', function() {
+    angular.module('secretSanta').controller('EmailListController', function(EmailListService) {
         var self = this;
 
         self.currentEmail = "";
-        self.allowNumber = "";
 
         self.actions = {
-            addEmail: function() { // CR: слово new не несет тут никакой нагрузки вообще, выбрасываем.
-                if (validateEmail(self.currentEmail)) {  // CR: необходимо уведомлять пользователя о неудачном имейле.
-                	// CR: добавить проверку на дублирование
+            addEmail: function() { 
+                if (EmailListService.validateEmail(self.currentEmail) && self.emails.indexOf(self.currentEmail) == -1) {  
                     self.emails.push(self.currentEmail);
                     self.currentEmail = "";
+                }
+                else
+                {
+                        
+                    // CR: необходимо уведомлять пользователя о неудачном имейле. (Показывать уведомление)
                 }
             },
             deleteEmail: function(idx) {
@@ -31,3 +36,4 @@ angular.module('secretSanta').controller('EmailListController', function() {
             }
         };
     });
+})()

@@ -1,4 +1,5 @@
-angular.module('secretSanta').directive('secsanNotification', function(){
+(function()
+	{angular.module('secretSanta').directive('secsanNotification', function(){
 		return {
 			replace: true,
         	restrict: 'A',
@@ -11,14 +12,15 @@ angular.module('secretSanta').directive('secsanNotification', function(){
             controller: 'NotificationController',
             controllerAs: 'notification',
             bindToController: true
-	};
-});
-angular.module('secretSanta').controller('NotificationController', function(title) {
+		};
+	});
+	angular.module('secretSanta').controller('NotificationController', function() {
         var self = this;
-        self.title = header;
         
         self.actions = {
         	closeNotification: function(){
+                self.status = 'closed';
         	}
         };
     });
+})()
